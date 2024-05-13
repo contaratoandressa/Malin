@@ -6,7 +6,7 @@ from os import listdir # listar arquivos
 from os.path import isfile, join # listar arquivos
 
 # base: Fazenda - Empresas
-def dwl_database(mypath = '/content/drive/MyDrive/CONSULTORIAS/UFF - Projeto Niterói/Bases de Dados/bases_fazenda/', compl = 'cnae/', name = 'cnae'):
+def dwl_database(mypath = '/content/drive/MyDrive/CONSULTORIAS/UFF - Projeto Niterói/Bases de Dados/bases_fazenda/', compl = 'cnae/', name = 'cnae', **kwargs):
     """Download databases.
     mypath = list of the path that the sheets are.
     compl = de exatc path.
@@ -17,11 +17,11 @@ def dwl_database(mypath = '/content/drive/MyDrive/CONSULTORIAS/UFF - Projeto Nit
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     # download
     if len(onlyfiles) == 1:
-      df = pd.read_csv(mypath+onlyfiles[0], sep=';',encoding='ISO-8859-1',header=None)
+      df = pd.read_csv(mypath+onlyfiles[0], **kwargs, sep=';',encoding='ISO-8859-1',header=None)
     else:
       df = pd.DataFrame()
       for list in range(0, len(onlyfiles)):
-        result = pd.read_csv(mypath+onlyfiles[list], sep=';',encoding='ISO-8859-1',header=None)
+        result = pd.read_csv(mypath+onlyfiles[list], **kwargs, sep=';',encoding='ISO-8859-1',header=None)
         df = pd.concat([df, result], axis=0)
     #rename
     if name == 'cnae':
@@ -38,7 +38,7 @@ def dwl_database(mypath = '/content/drive/MyDrive/CONSULTORIAS/UFF - Projeto Nit
                               28: "SituacaoEspecial", 29: "DataSituacaoEspecial"})
 
     # save into drive
-    df.to_csv(mypath+name)
+    df.to_csv(mypath+name+'.csv')
 
     # return
     return(df)
