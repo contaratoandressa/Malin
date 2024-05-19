@@ -6,7 +6,7 @@ from os import listdir # listar arquivos
 from os.path import isfile, join # listar arquivos
 
 # base: Fazenda - Empresas
-def dwl_database(mypath = '/content/drive/MyDrive/CONSULTORIAS/UFF - Projeto Niterói/Bases de Dados/bases_fazenda/', compl = 'cnae/', name = 'cnae', **kwargs):
+def dwl_database(mypath = '/content/drive/MyDrive/.../bases_fazenda/', compl = 'cnae/', name = 'cnae', **kwargs):
     """Download databases.
     mypath = list of the path that the sheets are.
     compl = de exatc path.
@@ -46,9 +46,10 @@ def dwl_database(mypath = '/content/drive/MyDrive/CONSULTORIAS/UFF - Projeto Nit
 
 # databases
 cnae = dwl_database()
-estabelecimentos = dwl_database(compl = 'estabelecimentos/', name = 'estabelecimentos')
+# estabelecimentos = dwl_database(compl = 'estabelecimentos/', name = 'estabelecimentos')
+estabelecimentos = dwl_database(compl = 'estabelecimentos/', name = 'estabelecimentos', usecols=[0,19,20])
 empresas = dwl_database(compl = 'empresas/', name = 'empresas')
-mypath = '/content/drive/MyDrive/CONSULTORIAS/UFF - Projeto Niterói/Bases de Dados/bases_fazenda/empresas/empresas1.csv'
+mypath = '/content/drive/MyDrive/.../bases_fazenda/empresas/empresas.csv'
 empresas = pd.read_csv(mypath)
 
 # orgao por municipio
